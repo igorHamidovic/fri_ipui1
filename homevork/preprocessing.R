@@ -5,7 +5,7 @@ data_source.files = c("vm_cpu_readings-file-1-of-195.csv", "vm_cpu_readings-file
                        "vm_cpu_readings-file-10-of-195.csv")
 
 path = sprintf("%s/%s", data_source.directory, data_source.files[1])
-new_dataset = read.csv(path, header = TRUE)
+  new_dataset = read.csv(path, header = TRUE)
 new_dataset$min_cpn <- NULL
 new_dataset$max_cpn <- NULL
 new_dataset$avg_cpn = as.numeric(format(round(new_dataset$avg_cpn, 2)))
