@@ -23,9 +23,9 @@ btc.incremental.sd <- function() {
   sum.all <- 0
   sd.vector <- c()
   while(!is.null(current <- btc_stream.next_value())) {
-    sum.squares <- sum.squares + current ^ 2
-    sum.all <- sum.all + current
-    sd.vector[counter] <- sqrt((sum.squares-(sum.all^2/counter))/(counter - 1))
+      sum.squares <- sum.squares + current ^ 2
+      sum.all <- sum.all + current
+      sd.vector[counter] <- sqrt((sum.squares-(sum.all^2/counter))/(counter - 1))
     counter <- counter + 1
   }
   return(sd.vector)
@@ -36,6 +36,5 @@ plot.btc.non_window_statistics <- function() {
   means <- btc.incremental.mean()
   lines(x=means, col="blue")
   sd <- btc.incremental.sd()
-  lines(x=sd, col="red")
-  legend("topright", legend=c("mean", "standard deviation"), col=c("blue", "red"), lty=1, cex=0.9)
+  plot(x=btc_data_stream$timestamp, y=sd, col="red", type = "l", xlab="timestamp", ylab="standard deviation")
 }

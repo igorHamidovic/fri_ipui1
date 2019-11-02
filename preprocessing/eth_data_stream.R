@@ -4,6 +4,8 @@ eth_data_stream = read.csv(eth_dataset_path)
 
 remove(eth_dataset_path)
 
+eth_data_stream <- aggregate(eth_data_stream["size"], list(timestamp=cut(as.POSIXct(eth_data_stream$timestamp), "hour")), mean)
+
 eth_stram.pointer <- 0
 
 eth_stream.init <- function() {

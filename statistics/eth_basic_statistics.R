@@ -36,6 +36,5 @@ plot.eth.non_window_statistics <- function() {
   means <- eth.incremental.mean()
   lines(x=means, col="blue")
   sd <- eth.incremental.sd()
-  lines(x=sd, col="red")
-  legend("topright", legend=c("mean", "standard deviation"), col=c("blue", "red"), lty=1, cex=0.9)
+  plot(x=eth_data_stream$timestamp, y=sd, col="red", type = "l", xlab="timestamp", ylab="standard deviation")
 }

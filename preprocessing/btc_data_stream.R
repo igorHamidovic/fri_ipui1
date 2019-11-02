@@ -4,6 +4,8 @@ btc_data_stream = read.csv(btc_dataset_path)
 
 remove(btc_dataset_path)
 
+btc_data_stream <- aggregate(btc_data_stream["size"], list(timestamp=cut(as.POSIXct(btc_data_stream$timestamp), "hour")), mean)
+
 btc_stram.pointer <- 0
 
 btc_stream.init <- function() {
