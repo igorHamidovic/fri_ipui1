@@ -31,7 +31,7 @@ eth.incremental.sd <- function() {
   return(sd.vector)
 }
 
-eth.acf <- function() {
+eth.incremental.acf <- function() {
   eth_stream.init()
   correlation.period <- 24
   counter <- 1
@@ -70,6 +70,6 @@ plot.eth.non_window_statistics <- function() {
   lines(x=means, col="blue")
   sd <- eth.incremental.sd()
   plot(x=eth_data_stream$timestamp, y=sd, col="red", type = "l", xlab="timestamp", ylab="standard deviation")
-  acf <- eth.acf()
+  acf <- eth.incremental.acf()
   plot(acf, col="red", type = "l", ylab="autocorrelation")
 }

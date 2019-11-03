@@ -31,7 +31,7 @@ btc.incremental.sd <- function() {
   return(sd.vector)
 }
 
-btc.acf <- function() {
+btc.incremental.acf <- function() {
   btc_stream.init()
   correlation.period <- 24
   counter <- 1
@@ -70,6 +70,6 @@ plot.btc.non_window_statistics <- function() {
   lines(x=means, col="blue")
   sd <- btc.incremental.sd()
   plot(x=btc_data_stream$timestamp, y=sd, col="red", type = "l", xlab="timestamp", ylab="standard deviation")
-  acf <- btc.acf()
+  acf <- btc.incremental.acf()
   plot(acf, col="red", type = "l", ylab="autocorrelation")
 }
