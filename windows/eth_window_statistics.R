@@ -1,8 +1,8 @@
-source("preprocessing/btc_data_stream.R")
+source("preprocessing/eth_data_stream.R")
 source("queue.R")
 
-btc.window.adwin.statistics <- function(win.size, delta.confidence) {
-  btc_stream.init()
+eth.window.adwin.statistics <- function(win.size, delta.confidence) {
+  eth_stream.init()
   counter <- 1
   window.sizes <- c()
   window.means <- c()
@@ -11,7 +11,7 @@ btc.window.adwin.statistics <- function(win.size, delta.confidence) {
   mintMinWinLength <- 3
   
   window <- queue.init()
-  while(!is.null(current <- btc_stream.next_value()) && (counter <= win.size)) {
+  while(!is.null(current <- eth_stream.next_value()) && (counter <= win.size)) {
     window <- queue.insert(window, current)
     counter <- counter + 1
   }
@@ -48,18 +48,18 @@ btc.window.adwin.statistics <- function(win.size, delta.confidence) {
     window.sd <- c(window.sd, sd(window))
     window.acf <- c(window.acf, acf(window, plot = FALSE, lag.max = 1)[1]$acf[1])
     counter <- counter + 1
-    current <- btc_stream.next_value()
+    current <- eth_stream.next_value()
   }
   return(list(size=window.sizes, means=window.means, sd=window.sd, acf=window.acf))
 }
 
-plot.btc.window.statistics <- function(win.size, delta) {
+plot.eth.window.statistics <- function(win.size, delta) {
   old.par <- par(mfrow=c(2,1), oma=c(0,0,0,0), mar=c(1,4,1,1))
   on.exit(par(old.par))
-  plot(x=btc_data_stream$timestamp, y=btc_data_stream$size, main="BTC", xlab="timestamp", ylab="Block size")
-  wa <- btc.window.adwin.statistics(win.size, delta)
+  plot(x=eth_data_stream$timestamp, y=eth_data_stream$size, main="ETH", xlab="timestamp", ylab="Block size")
+  wa <- eth.window.adwin.statistics(win.size, delta)
   lines(c(rep(NaN, win.size), wa$means), col="blue")
   plot(wa$size, col="red", type = "l")
-  plot(wa$sd, main="BTC", xlab="timestamp", ylab="Standard deviation", type = "l")
-  plot(wa$acf, main="BTC", xlab="timestamp", ylab="Autocorrelation", type = "l")
+  plot(wa$sd, main="ETH", xlab="timestamp", ylab="Standard deviation", type = "l")
+  plot(wa$acf, main="ETH", xlab="timestamp", ylab="Autocorrelation", type = "l")
 }
